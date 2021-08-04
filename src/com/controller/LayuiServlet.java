@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @WebServlet(name = "LayuiServlet",urlPatterns = "/LayuiServlet")
 public class LayuiServlet extends HttpServlet {
@@ -28,18 +27,35 @@ public class LayuiServlet extends HttpServlet {
         a1.setName("fcbhd");
         a1.setAge(12);
         a1.setId(001);
+        a1.setBirthbay(new Date());
+        a1.setShen(false);
         students.add(a1);
 
         Student a2=new Student();
         a2.setName("fcbhd");
-        a2.setAge(12);
+        a2.setAge(122);
         a2.setId(002);
+        a2.setShen(false);
+        String  bdate="1998-12-13 19:12:30";
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        Date bDate=null;
+        try {
+            bDate=simpleDateFormat.parse(bdate);
+            a2.setBirthbay(bDate);
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         students.add(a2);
+
 
         Student a3=new Student();
         a3.setName("fcbhd");
-        a3.setAge(12);
+        a3.setAge(123);
         a3.setId(003);
+        a3.setShen(true);
+        a3.setBirthbay(new Date());
         students.add(a3);
 
         Map map=new HashMap();
