@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网页的登陆页</title>
+</head>
+<link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
+<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+<body>
+
+<div>
+    <form class="layui-form" action="" lay-filter="testform" onsubmit="return false">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="userpwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="code"  class="layui-input">
+
+                <img src="/CodeServlet" style="width: 70px;height: 80px">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit lay-filter="formLogin">登录</button>
+
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+</div>
+
+<script>
+
+    layui.use(['form','jquery'],function () {
+
+        var form=layui.form;
+            var $=layui.jquery;
+
+
+
+            form.on('submit(formLogin)', function(data){
+            console.log('data 是什么');
+            console.log(data);
+            console.log('data.elem 原始DOM对象');
+            console.log(data.elem); //原始DOM对象
+            console.log('data.value 被选中的值');
+            console.log(data.value); //被选中的值
+            console.log('data.othis 美化后的DOM对象');
+            console.log(data.othis); //美化后的DOM对象
+            console.log('data.field data中的form下的 name 属性值')
+            console.log(data.field)//data中的form下的 name 属性值
+                console.log('pdata.field.userwd的值')
+                console.log(data.field.userpwd);
+            console.log("data.field.username")
+            console.log(data.field.username);
+            console.log('data.userName data中的form下的 name=username 属性值')
+            console.log(data.userName)//data中的form下的 name=username 属性值
+        });
+
+    })
+
+
+
+</script>
+
+
+</body>
+</html>
