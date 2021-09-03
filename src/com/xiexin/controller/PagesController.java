@@ -37,5 +37,25 @@ public class PagesController {
         return "loginForm";
 
     }
+    @RequestMapping("/ajaxCommit")
+    public String ajaxCommit(){
+
+        return "AjaxCommit";
+
+    }
+
+
+    @RequestMapping("/Shopping")
+    public String Shopping(){
+
+
+        return "Shopping";
+    }
+    @RequestMapping("/home")
+    public String home(){
+
+
+        return "home";
+    }
 
 }
