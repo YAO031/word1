@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.xiexin.dao.PersonDao">
+
+<!--namespace：映射文件的命名空间-->
+
+    <resultMap id="BaseResultMap" type="com.xiexin.bean.Person">
+      <!--id 只有一个 就是主键-->
+        <!--column 是数据库的列名-->
+        <!--property 是实体类的属性 -->
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="address" property="address"></result>
+        <result column="birtday" property="birtday"></result>
+        <result column="gender" property="gender"></result>
+        <result column="score" property="score"></result>
+
+
+
+    </resultMap>
+
+<select id="selectAll" resultMap="BaseResultMap">
+
+    select  * from person
+
+
+</select>
+
+
+
+</mapper>
