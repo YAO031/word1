@@ -9,7 +9,7 @@ public class Person {
     private int  gender;
     private String address;
     private  int  score;
-    private Date birtday;
+    private Date birthday;
 
 
     @Override
@@ -20,7 +20,7 @@ public class Person {
                 ", gender=" + gender +
                 ", address='" + address + '\'' +
                 ", score=" + score +
-                ", birtday=" + birtday +
+                ", birtday=" + birthday +
                 '}';
     }
 
@@ -64,11 +64,11 @@ public class Person {
         this.score = score;
     }
 
-    public Date getBirtday() {
-        return birtday;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirtday(Date birtday) {
-        this.birtday = birtday;
+    public void setBirthday(Date birtday) {
+        this.birthday = birtday;
     }
 }

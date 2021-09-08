@@ -11,13 +11,22 @@
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
         <result column="address" property="address"></result>
-        <result column="birtday" property="birtday"></result>
+        <result column="birtday" property="birthday"></result>
         <result column="gender" property="gender"></result>
         <result column="score" property="score"></result>
 
 
 
     </resultMap>
+
+    <!--sql 片段  -->
+    <sql id="allColumn">
+        id,name,gender,birthday,address
+
+    </sql>
+    <sql id="aa">
+        id,name,gender,address
+    </sql>
 
 <select id="selectAll" resultMap="BaseResultMap">
 
@@ -27,5 +36,195 @@
 </select>
 
 
+    <!--sql 带参的查询-->
+    <select id="selectPersonBysex" resultMap="BaseResultMap" parameterType="int">
 
+
+      select <include refid="aa"/> from person where gender= #{sex}
+
+
+    </select>
+<select id="selectcount" resultType="int">
+
+
+    select count(*) from  person
+</select>
+
+
+<!--当前端传来多个参数 需要看参数是否是同一个类中的属性<单标> 如果是就可以用这个类做参数，
+如果不是就可以手写一个参数的实体类<多表>，或者使用map 做参数-->
+    <select id="selecountByparam01" resultType="int" parameterType="com.xiexin.bean.Person">
+
+        select count(*) from person where gender= #{gender} and score > #{score}
+
+    </select>
+
+
+    <select id="selecountByparam02" resultMap="BaseResultMap" parameterType="map">
+
+       <![CDATA[ select  * from  person  where  gender= #{gender} and birthday < #{birthday}
+
+    ]]></select>
+
+    <select id="selemax" resultMap="BaseResultMap" >
+
+       select  * from person where  score=(select max(score) from  person)
+    </select>
+
+    <select id="selectang" resultType="int" parameterType="map">
+
+SELECT avg(score) from person where gender=#{gender}
+
+
+    </select>
+    <!--select avg(score)from person group by gender-->
+
+<select id="selescore" resultMap="BaseResultMap" parameterType="map">
+
+    SELECT * from person where score > #{score} and gender= #{gender}
+
+</select>
+
+
+    <select id="selectavgq" resultType="com.xiexin.bean.dto.personDto" parameterType="int">
+        select  gender,avg(score) as avgscore from person group by gender having  avgscore>#{score}
+
+
+    </select>
+
+    <select id="selectavgmap" resultType="map" parameterType="int">
+        select  gender,avg(score) as avgscore from person group by gender having  avgscore>#{score}
+
+
+    </select>
+
+
+    <select id="selectlike" resultMap="BaseResultMap" parameterType="string">
+        select * from person where name like '${name}%'
+
+    </select>
+    <select id="selectlike02" resultMap="BaseResultMap" parameterType="string">
+        select * from person where name like concat (#{name},'%')
+
+    </select>
+    <select id="selectlike03" resultMap="BaseResultMap" parameterType="string">
+        select * from person where name like #{name}"%"
+
+    </select>
+
+    <!--以上是单查-->
+
+
+    <!--添加一条数据 -->
+    <!--场景 班级是1和学生多，一对多   -->
+
+    <!--插入数据 自动上报我们的主键 id-->
+
+    <!--keyProperty 主键的id
+    order 指的是 自增的主键 是数据插入后诞生的还是插入之前诞生的 mysql after Oracle前
+
+    resultType 主键id的数据类型 一般int 分布式是String 雪花算法
+    select  LAST_INSERT_ID () 查询插入的主键id
+    -->
+    <insert id="inserperson" parameterType="com.xiexin.bean.Person">
+      <selectKey keyProperty="id" order="AFTER" resultType="int">
+          select  LAST_INSERT_ID ()
+
+
+      </selectKey>
+
+        insert  into person (id,name,gender,birthday,address,score) values (null, #{name},#{gender},#{birthday},#{address},#{score})
+    </insert>
+
+
+
+<!--删除-->
+
+<delete id="delPersonByid" parameterType="int" >
+
+    delete from  person where id=#{id}
+</delete>
+
+
+
+    <!--动态SQL之动态查询- 9个-->
+    <!--where 1，删除第一个and 2.代替了 原始的SQL 种的where where长和 if搭配 -->
+    <!-- where 需要把方法里的 参数 <map 实体类> 的属性写全-->
+    <!--if 的注意事项 test是值 写得实体类的属性-->
+     <select id="dongtaiselect" resultMap="BaseResultMap" parameterType="com.xiexin.bean.Person">
+
+         select  * from person p
+         <where>
+             <if test="id !=null and id !='' ">
+                 p.id=#{id}
+
+             </if>
+            <if test="name !=null and name !='' ">
+             and   p.name=#{name}
+
+            </if>
+             <if test="gender !=null and gender !='' ">
+                 and   p.gender=#{gender}
+
+             </if>
+             <if test="birthday !=null ">
+                 and   p.birthday=#{birthday}
+
+             </if>
+             <if test="score !=null and score !='' ">
+                 and   p.score>#{score}
+             </if>
+             <if test="address !=null and address !='' ">
+                 and   p.address=#{address}
+             </if>
+
+         </where>
+
+     </select>
+
+
+    <!--动态修改-->
+    <!--update  person set  -->
+
+    <update id="dengtaiupdate" parameterType="com.xiexin.bean.Person" >
+        update person p
+        <set>
+            <if test="name !=null and name !='' ">
+                   p.name=#{name}，
+
+            </if>
+            <if test="gender !=null and gender !='' ">
+                   p.gender=#{gender}，
+
+            </if>
+            <if test="birthday !=null ">
+                   p.birthday=#{birthday}，
+
+            </if>
+            <if test="score !=null and score !='' ">
+                   p.score>#{score}，
+            </if>
+            <if test="address !=null and address !='' ">
+                   p.address=#{address}
+            </if>
+
+        </set>
+          where
+          p.id=#{id}
+
+
+
+    </update>
+
+
+    <!-- 批量删除-->
+
+    <delete id="pilaingdel" parameterType="map">
+        delete from person where id in
+        <foreach collection="ids" open="(" item="id" separator=", " close =")" index="index">
+
+            #{id}
+
+        </foreach>
+    </delete>
 </mapper>

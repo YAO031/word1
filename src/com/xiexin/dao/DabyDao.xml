@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.dao.DabyDao">
+
+
+
+    <select id="daby01" resultType="map" parameterType="map">
+     SELECT * from (select s.s_id ,s.s_name ,s.s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id and c_id=#{cid} ) as aa, (select b.c_id,b.s_score as sum from student as s,score as b where s.s_id=b.s_id and c_id=#{ccid} ) as aa1  WHERE s_score>sum
+
+    </select>
+<select id="daby02" resultType="map" parameterType="map">
+
+    <![CDATA[ SELECT * from (select s.s_id ,s.s_name ,s.s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id and c_id=#{cid} ) as aa, (select b.c_id,b.s_score as sum from student as s,score as b where s.s_id=b.s_id and c_id=#{ccid} ) as aa1  WHERE s_score<sum  ]]>
+
+</select>
+
+    <select id="daby03" resultType="map" >
+
+
+        select s.s_id ,s.s_name ,AVG(s_score) as avg,s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id GROUP BY s_id HAVING avg>60
+
+    </select>
+
+
+    <select id="daby04" resultType="map">
+
+        <![CDATA[select s.s_id ,s.s_name ,AVG(s_score) as avg,s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id GROUP BY s_id HAVING avg<60  ]]>
+    </select>
+
+    <select id="daby05" resultType="map">
+select s.s_id ,s.s_name ,s_birth,s.s_sex,count(c_id),SUM(s_score) from student as s,score as b where s.s_id=b.s_id GROUP BY s_id
+
+
+    </select>
+
+    <select id="daby06" resultType="map" parameterType="map">
+
+        SELECT count(*) from teacher where t_name LIKE  #{name}"%"
+
+    </select>
+
+    <select id="daby07" parameterType="map" resultType="map">
+
+select s.s_id ,s.s_name ,s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id  and c_id=#{cid}
+
+    </select>
+
+    <select id="daby08" resultType="map" parameterType="map">
+
+        select s.s_id ,s.s_name ,s_birth,s.s_sex,b.c_id,b.s_score from student as s,score as b where s.s_id=b.s_id    GROUP BY s_id  HAVING	s_id !=#{cid} and s_id !=#{cid1} and c_id    not in (#{cid2});
+    </select>
+
+    <select id="daby09" resultType="map" parameterType="map">
+        select * from score as a,score as b WHERE a.s_id=b.s_id and a.c_id=#{cid} and b.c_id=#{ccid};
+    </select>
+
+    <select id="daby10" resultType="map" parameterType="map">
+         select * from score as a,score as b WHERE a.s_id=b.s_id and a.c_id=#{cid} and b.c_id!=#{ccid}
+    </select>
+</mapper>
