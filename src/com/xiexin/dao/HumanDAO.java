@@ -8,8 +8,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HumanDAO {
-    long countByExample(HumanExample example);
-
+    long countByExample(HumanExample example);//用example类查总条数，动态的SQL去查询总条数
+    //当  example 类 为null的时候
+    //select* from human
+    //当  example 类 不为null的时候
+    //select* from human where gender=2 参数如何传递呢
     int deleteByExample(HumanExample example);
 
     int deleteByPrimaryKey(Integer id);

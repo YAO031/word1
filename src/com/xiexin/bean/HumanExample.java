@@ -5,12 +5,19 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+//例子类 意思1： 给我们一个增删改查的动态查询的例子，你不需要对单表
+//Example把Human的所有字段都进行了条件语句的（not is null，like bewteen ...、and  or ，in，>,<,）封装，
+//该类就是一个单表的自定义的查询的类
+//功效就是。不用对单表进行手写crud了
+
+
+
 public class HumanExample {
-    protected String orderByClause;
+    protected String orderByClause;//排序
 
-    protected boolean distinct;
+    protected boolean distinct; //去重
 
-    protected List<Criteria> oredCriteria;
+    protected List<Criteria> oredCriteria;//规范
 
     private Integer limit;
 

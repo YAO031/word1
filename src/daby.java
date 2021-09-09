@@ -186,5 +186,22 @@ public class daby {
 
     }
 
+    /**
+     *
+     * 2021年9月9日11:39:35
+     *
+     */
+
+    @Test
+    public void test01(){
+
+        sqlSession.selectList("");
+
+
+
+    }
+
+
+
 
 }

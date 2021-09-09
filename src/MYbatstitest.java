@@ -1,3 +1,5 @@
+import com.xiexin.bean.Human;
+import com.xiexin.bean.HumanExample;
 import com.xiexin.bean.Person;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.io.Resources;
@@ -306,6 +308,78 @@ public class MYbatstitest {
         System.out.println("i = " + i);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+
+    //这是逆向生成
+    @Test
+    public void  test18(){
+
+        HumanExample example=new HumanExample();
+        HumanExample.Criteria criteria=example.createCriteria();//用例子 实现查询
+        //criteria.andGenderEqualTo(2);
+//        criteria.andAddressEqualTo("西京");
+
+//        criteria.andAddressLike("%"+"西京"+"%");
+//        criteria.andAddressNotLike("西京");
+
+       // criteria.andAddressEqualTo("北京"+" or " + "score=555" );
+//        criteria.andScoreEqualTo(555);
+//example.or().andAddressEqualTo("北京");
+//example.or().andScoreEqualTo(555);
+//example.or().andIdEqualTo(1);
+//example.or().andIdEqualTo(2);
+//example.or().andIdEqualTo(3);
+//example.or().andIdBetween(1,3);
+List list=new LinkedList();
+list.add(1);
+list.add(4);
+list.add(5);
+        criteria.andIdIn(list);
+
+       //当example的criteria不用赋值的时候则是：Preparing: select count(*) from human
+        long o = sqlSession.selectOne("com.xiexin.dao.HumanDAO.countByExample", example);
+
+        System.out.println("o = " + o);
+        sqlSession.close();
+
+
+    }
+
+    @Test
+    public void test19(){
+
+
+        HumanExample example=new HumanExample();
+        List<Human> list = sqlSession.selectList("com.xiexin.dao.HumanDAO.selectByExample",example);
+        for (Human human : list) {
+
+            System.out.println("human = " + human);
+        }
+        sqlSession.close();
+
+    }
+    @Test
+    public void test19_1(){
+
+
+        HumanExample example=new HumanExample();
+        HumanExample.Criteria criteria=example.createCriteria();
+//        criteria.andGenderEqualTo(2);
+//        criteria.andGenderEqualTo(1);
+//        criteria.andIdEqualTo(1);
+//        criteria.andScoreBetween(80,500);
+        criteria.andScoreBetween(80,500);
+        criteria.andGenderEqualTo(1);
+        criteria.andAddressLike("%"+"北京"+"%");
+
+        List<Human> list = sqlSession.selectList("com.xiexin.dao.HumanDAO.selectByExample",example);
+        for (Human human : list) {
+
+            System.out.println("human = " + human);
+        }
+        sqlSession.close();
+
     }
 }
 
