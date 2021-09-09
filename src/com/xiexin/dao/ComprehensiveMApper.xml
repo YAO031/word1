@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.dao.Comprehensive">
+
+    <!--namespace：映射文件的命名空间-->
+    <select id="comprehensive06"  resultType="map">
+select cno, c.empno,cname,c.sex,education,sal ,money,remarks,ename,age deptno from customer as c ,emp as e where c.empno =e.empno
+
+    </select>
+
+    <select id="comprehensive07" resultType="map" parameterType="map">
+
+        SELECT * from emp  WHERE deptno=#{id} ORDER BY age desc
+
+    </select>
+
+    <select id="comprehensive08" resultType="map" >
+    SELECT education,count(*),avg(sal) from customer GROUP BY education
+
+    </select>
+    <select id="comprehensive09" resultType="map">
+
+        SELECT ename,sum(money) from customer as a,emp as e where a.empno =e.empno GROUP BY ename
+    </select>
+
+
+
+        <select id="comprehensive10" resultType="map">
+
+        SELECT ename,sum(money) from customer as a,emp as e where a.empno =e.empno GROUP BY ename having sum(money) >2000000
+    </select>
+
+    <update id="updata" parameterType="map">
+
+        UPDATE customer set tel ='18728392567' WHERE cname=#{name}
+
+    </update>
+
+    <update id="updata01" >
+
+        UPDATE customer set remarks ='竞标客户' WHERE sal>=5000 and money>500000
+
+    </update>
+
+    <delete id="dele" parameterType="map">
+
+        delete  from customer where cname=#{name}
+    </delete>
+
+
+</mapper>

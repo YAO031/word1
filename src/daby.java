@@ -1,3 +1,5 @@
+import com.xiexin.bean.Customer;
+import com.xiexin.bean.CustomerExample;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -195,10 +197,194 @@ public class daby {
     @Test
     public void test01(){
 
-        sqlSession.selectList("");
+        CustomerExample example=new CustomerExample();
+        CustomerExample.Criteria criteria= example.createCriteria();
+
+
+        criteria.andSalBetween(5000,7000);
+
+
+        List<Customer> list = sqlSession.selectList("com.xiexin.dao.CustomerDAO.selectByExample",example);
+        for (Customer customer : list) {
+            System.out.println("customer = " + customer);
+
+        }
+        sqlSession.close();
+
+
+    }
+    @Test
+    public void test02(){
+
+        CustomerExample example=new CustomerExample();
+        CustomerExample.Criteria criteria= example.createCriteria();
+
+
+       criteria.andEducationEqualTo("专科");
+       criteria.andSalGreaterThanOrEqualTo(3700);
+
+
+       example.setOrderByClause("sal  desc  ");
+
+
+        List<Customer> list = sqlSession.selectList("com.xiexin.dao.CustomerDAO.selectByExample",example);
+        for (Customer customer : list) {
+            System.out.println("customer = " + customer);
+
+        }
+        sqlSession.close();
+
+
+    }
+
+
+    @Test
+    public void test03(){
+
+        CustomerExample example=new CustomerExample();
+        CustomerExample.Criteria criteria= example.createCriteria();
 
 
 
+      criteria.andCnameLike("%"+"明"+"%");
+
+
+
+
+        List<Customer> list = sqlSession.selectList("com.xiexin.dao.CustomerDAO.selectByExample",example);
+        for (Customer customer : list) {
+            System.out.println("customer = " + customer);
+
+        }
+        sqlSession.close();
+
+
+    }
+    @Test
+    public void test04(){
+
+        CustomerExample example=new CustomerExample();
+        CustomerExample.Criteria criteria= example.createCriteria();
+
+
+
+        criteria.andCnameLike("%"+"刚"+"%");
+
+
+
+
+        List<Customer> list = sqlSession.selectList("com.xiexin.dao.CustomerDAO.selectByExample",example);
+        for (Customer customer : list) {
+            System.out.println("customer = " + customer);
+
+        }
+        sqlSession.close();
+
+
+    }
+
+    @Test
+    public void test05(){
+
+        CustomerExample example=new CustomerExample();
+        CustomerExample.Criteria criteria= example.createCriteria();
+
+
+
+       criteria.andSalGreaterThanOrEqualTo(5000);
+
+
+
+
+        List<Customer> list = sqlSession.selectList("com.xiexin.dao.CustomerDAO.selectByExample",example);
+        for (Customer customer : list) {
+            System.out.println("customer = " + customer);
+
+        }
+        sqlSession.close();
+
+
+    }
+
+    @Test
+    public void test06(){
+
+        List<Map> list = sqlSession.selectList("com.xiexin.dao.Comprehensive.comprehensive06");
+
+        for (Map map : list) {
+            System.out.println("map = " + map);
+        }
+        sqlSession.close();
+    }
+    @Test
+    public void test07(){
+        Map map1=new HashMap();
+        map1.put("id",1);
+        List<Map> list = sqlSession.selectList("com.xiexin.dao.Comprehensive.comprehensive07",map1);
+
+        for (Map map : list) {
+            System.out.println("map = " + map);
+        }
+        sqlSession.close();
+    }
+    @Test
+    public void test08(){
+
+        List<Map> list = sqlSession.selectList("com.xiexin.dao.Comprehensive.comprehensive08");
+
+        for (Map map : list) {
+            System.out.println("map = " + map);
+        }
+        sqlSession.close();
+    }
+    @Test
+    public void test09(){
+
+        List<Map> list = sqlSession.selectList("com.xiexin.dao.Comprehensive.comprehensive09");
+
+        for (Map map : list) {
+            System.out.println("map = " + map);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    public void test10(){
+
+        List<Map> list = sqlSession.selectList("com.xiexin.dao.Comprehensive.comprehensive10");
+
+        for (Map map : list) {
+            System.out.println("map = " + map);
+        }
+        sqlSession.close();
+    }
+       @Test
+    public void test11(){
+        Map map=new HashMap();
+        map.put("name","李东海");
+        int i= sqlSession.update("com.xiexin.dao.Comprehensive.updata",map);
+
+        System.out.println("i = " + i);
+        sqlSession.close();
+    }
+
+    @Test
+    public void test12(){
+
+        int i= sqlSession.update("com.xiexin.dao.Comprehensive.updata01");
+
+        System.out.println("i = " + i);
+        sqlSession.close();
+    }
+
+    @Test
+    public void test13(){
+Map map=new HashMap();
+map.put("name","刘国华");
+        int i= sqlSession.delete("com.xiexin.dao.Comprehensive.dele",map);
+
+        System.out.println("i = " + i);
+        sqlSession.close();
     }
 
 

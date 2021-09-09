@@ -24,6 +24,7 @@
 		<mapper resource="com/xiexin/dao/CustomerDAO.xml"></mapper>
 		<mapper resource="com/xiexin/dao/DeptDAO.xml"></mapper>
 		<mapper resource="com/xiexin/dao/EmpDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/ComprehensiveMApper.xml"></mapper>
 
 	</mappers>
 
