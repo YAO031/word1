@@ -63,6 +63,10 @@ public interface PersonDao {
     //批量删除
     void  pilaingdel(Map map);
 
+    //一对多
+
+    List<Person> selectorderByperson(Integer id);
+
 
 
 }

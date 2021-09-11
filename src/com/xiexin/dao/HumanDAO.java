@@ -17,9 +17,9 @@ public interface HumanDAO {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Human record);
+    int insert(Human record);//当Hume对象 所有属性都在可以用他
 
-    int insertSelective(Human record);
+    int insertSelective(Human record);//进量用他
 
     List<Human> selectByExample(HumanExample example);
 

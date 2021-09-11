@@ -227,4 +227,44 @@ SELECT avg(score) from person where gender=#{gender}
 
         </foreach>
     </delete>
+
+<!--多表的关系需要自定义一个resultMap-->
+    <resultMap id="selectorderBypersonim" type="com.xiexin.bean.Person" extends="BaseResultMap">
+
+        <!--<id column="id" property="id"></id>-->
+        <!--<result column="name" property="name"></result>-->
+        <!--<result column="address" property="address"></result>-->
+        <!--<result column="birtday" property="birthday"></result>-->
+        <!--<result column="gender" property="gender"></result>-->
+        <!--<result column="score" property="score"></result>-->
+        <collection property="orders" ofType="com.xiexin.bean.Orders">
+
+            <id column="orders_id" jdbcType="INTEGER" property="ordersId" />
+            <result column="person_id" jdbcType="INTEGER" property="personId" />
+            <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+            <result column="addr" jdbcType="VARCHAR" property="addr" />
+
+
+        </collection>
+    </resultMap>
+
+    <select id="selectorderByperson" resultMap="selectorderBypersonim"  parameterType="map">
+
+    SELECT * from person p join  orders o on p.id=o.person_id
+
+     <where>
+
+         <if test="id !=null and id!=''">
+             p.id=#{id}
+         </if>
+
+         <if test="name !=null and name!=''">
+            and  name=#{name}
+         </if>
+
+     </where>
+
+
+        
+    </select>
 </mapper>

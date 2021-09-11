@@ -1,6 +1,7 @@
 package com.xiexin.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Person {
 
@@ -12,6 +13,10 @@ public class Person {
     private Date birthday;
 
 
+    private List<Orders> orders;
+
+
+
     @Override
     public String toString() {
         return "Person{" +
@@ -20,8 +25,17 @@ public class Person {
                 ", gender=" + gender +
                 ", address='" + address + '\'' +
                 ", score=" + score +
-                ", birtday=" + birthday +
+                ", birthday=" + birthday +
+                ", orders=" + orders +
                 '}';
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 
     public int getId() {

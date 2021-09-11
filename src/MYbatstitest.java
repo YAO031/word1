@@ -1,3 +1,4 @@
+import com.xiexin.bean.City;
 import com.xiexin.bean.Human;
 import com.xiexin.bean.HumanExample;
 import com.xiexin.bean.Person;
@@ -381,5 +382,161 @@ list.add(5);
         sqlSession.close();
 
     }
+
+
+    //2021年9月10日09:18:48
+    //工具的增加
+
+
+    @Test
+    public void test20(){
+
+        Human human=new Human();
+        human.setName("刘晓云");
+        human.setAddress("北京");
+        human.setGender(2);
+        human.setScore(2000);
+
+        int insert = sqlSession.insert("com.xiexin.dao.HumanDAO.insert",human);
+
+        System.out.println("insert = " + insert);
+        sqlSession.commit();
+        sqlSession.close();
+
+    }
+
+    @Test
+    public void test21(){
+
+        int delete = sqlSession.delete("com.xiexin.dao.HumanDAO.deleteByPrimaryKey", 6);
+        System.out.println("delete = " + delete);
+        sqlSession.commit();
+        sqlSession.close();
+
+    }
+
+    //条件删除
+    @Test
+    public void test22(){
+
+        HumanExample example=new HumanExample();
+        HumanExample.Criteria criteria=example.createCriteria();
+        criteria.andGenderEqualTo(2);
+        criteria.andScoreLessThan(150);
+
+        int delete = sqlSession.delete("com.xiexin.dao.HumanDAO.deleteByExample", example);
+        System.out.println("delete = " + delete);
+        sqlSession.commit();
+        sqlSession.close();
+
+    }
+
+
+    @Test
+    public void test23(){
+
+        Human human=new Human();
+        human.setId(4);
+        human.setName("沙和尚");
+
+         int update = sqlSession.update("com.xiexin.dao.HumanDAO.updateByPrimaryKeySelective",human);
+//        int update = sqlSession.update("com.xiexin.dao.HumanDAO.updateByPrimaryKey",human);
+        System.out.println("update = " + update);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+
+
+    @Test
+    public void test24(){
+
+        Human human=new Human();
+        human.setScore(200);
+        HumanExample example=new HumanExample();
+        HumanExample.Criteria criteria = example.createCriteria();
+        criteria.andScoreGreaterThan(100);
+
+        //sqlSession.update("com.xiexin.dao.HumanDAO.updateByExampleSelective",human,example);
+
+
+    }
+
+    @Test
+    public void test25(){
+
+        Human hume = sqlSession.selectOne("com.xiexin.dao.HumanDAO.selectByPrimaryKey", 4);
+
+        System.out.println("hume = " + hume);
+        sqlSession.close();
+    }
+    @Test
+    public void test26() throws ParseException {
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("YYYY-MM-dd");
+
+        Date date=simpleDateFormat.parse("2020-11-09");
+        HumanExample example=new HumanExample();
+        HumanExample.Criteria criteria = example.createCriteria();
+        criteria.andScoreGreaterThan(100);
+        criteria.andBirthdayGreaterThan(date);
+
+        List<Human> hume = sqlSession.selectList("com.xiexin.dao.HumanDAO.selectByExample", example);
+
+        for (Human human : hume) {
+
+            System.out.println("human = " + human);
+        }
+        sqlSession.close();
+
+    }
+
+//    @Test
+//    public void test27(){
+//
+//
+//        List<Person> objects = sqlSession.selectList("com.xiexin.dao.PersonDao.selectorderByperson", 3);
+//
+//        for (Person object : objects) {
+//            System.out.println("object = " + object);
+//        }
+//        sqlSession.close();
+//
+//    }
+    @Test
+    public void test27(){
+        Map map=new HashMap();
+        map.put("id",3);
+        map.put("name","策策");
+
+        List<Person> objects = sqlSession.selectList("com.xiexin.dao.PersonDao.selectorderByperson",map);
+
+        for (Person object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+
+
+    @Test
+    public void ceshi(){
+
+        Map map=new HashMap();
+        map.put("id",2);
+        map.put("name","郑州");
+
+        List<City> ctiy = sqlSession.selectList("com.xiexin.dao.CityDAO.selass", map);
+
+
+        for (City o : ctiy) {
+
+            System.out.println("o = " + o);
+
+        }
+
+        sqlSession.close();
+    }
+
 }
 
