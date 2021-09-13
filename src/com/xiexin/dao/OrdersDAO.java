@@ -27,4 +27,7 @@ public interface OrdersDAO {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+    //多对一，根据订单查询人
+        Orders selectPersonByOrdersId(Integer Ordersid);
 }

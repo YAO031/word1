@@ -16,6 +16,15 @@ public class Person {
     private List<Orders> orders;
 
 
+    private  List<Role> roleList;
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 
     @Override
     public String toString() {
@@ -27,6 +36,7 @@ public class Person {
                 ", score=" + score +
                 ", birthday=" + birthday +
                 ", orders=" + orders +
+                ", roleList=" + roleList +
                 '}';
     }
 

@@ -1,7 +1,5 @@
-import com.xiexin.bean.City;
-import com.xiexin.bean.Human;
-import com.xiexin.bean.HumanExample;
-import com.xiexin.bean.Person;
+import com.xiexin.bean.*;
+import com.xiexin.dao.XuexiaoDAO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -518,13 +516,100 @@ list.add(5);
 
     }
 
+    @Test
+    public void test28(){
+
+        List<Person> objects = sqlSession.selectList("com.xiexin.dao.PersonDao.selectaaaaa",1);
+
+        for (Person object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+    @Test
+    public void test29(){
+        Map map=new HashMap();
+        map.put("id",3);
+        map.put("name","策策");
+        List<Person> objects = sqlSession.selectList("com.xiexin.dao.PersonDao.selectaaaaa",map);
+
+        for (Person object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+    @Test
+    public void test30(){
+
+        Orders objects = sqlSession.selectOne("com.xiexin.dao.OrdersDAO.selectPersonByOrdersId",3);
+        System.out.println("objects = " + objects);
+
+
+        sqlSession.close();
+
+    }
+    @Test
+    public void test31(){
+
+        List<Person> objects = sqlSession.selectList("com.xiexin.dao.PersonDao.selectRoleByPename","孙尚香");
+
+        for (Person object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+
+
+//22点40分
+    @Test
+    public void zy(){
+
+        List<Xuexiao> objects = sqlSession.selectList("com.xiexin.dao.XuexiaoDAO.select",1);
+
+        for (Xuexiao object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+    @Test
+    public void zy2(){
+Map map=new HashMap();
+
+map.put("id" ,1);
+map.put("name","三门峡");
+        List<Map> objects = sqlSession.selectList("com.xiexin.dao.XuexiaoDAO.selectBtyid",map);
+
+        for (Map object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+
+    @Test
+    public void zy3(){
+
+        List<Xuesheng> objects = sqlSession.selectList("com.xiexin.dao.XueshengDAO.select","小卢");
+
+        for (Xuesheng object : objects) {
+            System.out.println("object = " + object);
+        }
+        sqlSession.close();
+
+    }
+
+
 
     @Test
     public void ceshi(){
 
         Map map=new HashMap();
         map.put("id",2);
-        map.put("name","郑州");
+
 
         List<City> ctiy = sqlSession.selectList("com.xiexin.dao.CityDAO.selass", map);
 

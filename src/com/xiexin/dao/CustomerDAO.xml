@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiexin.dao.CustomerDAO">
   <resultMap id="BaseResultMap" type="com.xiexin.bean.Customer">
-    <id column="cno" jdbcType="INTEGER" property="cno" />
-    <result column="empno" jdbcType="INTEGER" property="empno" />
-    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
+    <result column="car" jdbcType="VARCHAR" property="car" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="education" jdbcType="VARCHAR" property="education" />
-    <result column="sal" jdbcType="INTEGER" property="sal" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="money" jdbcType="INTEGER" property="money" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cno, empno, cname, sex, education, sal, tel, money, remarks
+    id, `name`, phone, createtime, idcard, score, car, sex
   </sql>
   <select id="selectByExample" parameterType="com.xiexin.bean.CustomerExample" resultMap="BaseResultMap">
     select
@@ -99,11 +98,11 @@
     select 
     <include refid="Base_Column_List" />
     from customer
-    where cno = #{cno,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customer
-    where cno = #{cno,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xiexin.bean.CustomerExample">
     delete from customer
@@ -112,73 +111,65 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xiexin.bean.Customer">
-    insert into customer (cno, empno, cname, 
-      sex, education, sal, 
-      tel, money, remarks
-      )
-    values (#{cno,jdbcType=INTEGER}, #{empno,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{sal,jdbcType=INTEGER}, 
-      #{tel,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}
-      )
+    insert into customer (id, `name`, phone, 
+      createtime, idcard, score, 
+      car, sex)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{idcard,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{car,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xiexin.bean.Customer">
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="cno != null">
-        cno,
+      <if test="id != null">
+        id,
       </if>
-      <if test="empno != null">
-        empno,
+      <if test="name != null">
+        `name`,
       </if>
-      <if test="cname != null">
-        cname,
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="car != null">
+        car,
       </if>
       <if test="sex != null">
         sex,
       </if>
-      <if test="education != null">
-        education,
-      </if>
-      <if test="sal != null">
-        sal,
-      </if>
-      <if test="tel != null">
-        tel,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="cno != null">
-        #{cno,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="empno != null">
-        #{empno,jdbcType=INTEGER},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="cname != null">
-        #{cname,jdbcType=VARCHAR},
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="car != null">
+        #{car,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="education != null">
-        #{education,jdbcType=VARCHAR},
-      </if>
-      <if test="sal != null">
-        #{sal,jdbcType=INTEGER},
-      </if>
-      <if test="tel != null">
-        #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=INTEGER},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -191,32 +182,29 @@
   <update id="updateByExampleSelective" parameterType="map">
     update customer
     <set>
-      <if test="record.cno != null">
-        cno = #{record.cno,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.empno != null">
-        empno = #{record.empno,jdbcType=INTEGER},
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.cname != null">
-        cname = #{record.cname,jdbcType=VARCHAR},
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.idcard != null">
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.car != null">
+        car = #{record.car,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null">
         sex = #{record.sex,jdbcType=VARCHAR},
-      </if>
-      <if test="record.education != null">
-        education = #{record.education,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sal != null">
-        sal = #{record.sal,jdbcType=INTEGER},
-      </if>
-      <if test="record.tel != null">
-        tel = #{record.tel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.money != null">
-        money = #{record.money,jdbcType=INTEGER},
-      </if>
-      <if test="record.remarks != null">
-        remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -225,15 +213,14 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update customer
-    set cno = #{record.cno,jdbcType=INTEGER},
-      empno = #{record.empno,jdbcType=INTEGER},
-      cname = #{record.cname,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=VARCHAR},
-      education = #{record.education,jdbcType=VARCHAR},
-      sal = #{record.sal,jdbcType=INTEGER},
-      tel = #{record.tel,jdbcType=VARCHAR},
-      money = #{record.money,jdbcType=INTEGER},
-      remarks = #{record.remarks,jdbcType=VARCHAR}
+    set id = #{record.id,jdbcType=INTEGER},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      idcard = #{record.idcard,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      car = #{record.car,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,43 +228,39 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xiexin.bean.Customer">
     update customer
     <set>
-      <if test="empno != null">
-        empno = #{empno,jdbcType=INTEGER},
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="cname != null">
-        cname = #{cname,jdbcType=VARCHAR},
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="car != null">
+        car = #{car,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="education != null">
-        education = #{education,jdbcType=VARCHAR},
-      </if>
-      <if test="sal != null">
-        sal = #{sal,jdbcType=INTEGER},
-      </if>
-      <if test="tel != null">
-        tel = #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=INTEGER},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
     </set>
-    where cno = #{cno,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xiexin.bean.Customer">
     update customer
-    set empno = #{empno,jdbcType=INTEGER},
-      cname = #{cname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      education = #{education,jdbcType=VARCHAR},
-      sal = #{sal,jdbcType=INTEGER},
-      tel = #{tel,jdbcType=VARCHAR},
-      money = #{money,jdbcType=INTEGER},
-      remarks = #{remarks,jdbcType=VARCHAR}
-    where cno = #{cno,jdbcType=INTEGER}
+    set `name` = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      car = #{car,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

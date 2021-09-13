@@ -10,7 +10,7 @@ public interface CustomerDAO {
 
     int deleteByExample(CustomerExample example);
 
-    int deleteByPrimaryKey(Integer cno);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Customer record);
 
@@ -18,7 +18,7 @@ public interface CustomerDAO {
 
     List<Customer> selectByExample(CustomerExample example);
 
-    Customer selectByPrimaryKey(Integer cno);
+    Customer selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Customer record, @Param("example") CustomerExample example);
 

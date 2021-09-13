@@ -1,6 +1,7 @@
 package com.xiexin.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * orders
@@ -14,6 +15,26 @@ public class Orders implements Serializable {
     private Double totalPrice;
 
     private String addr;
+    private  Person person;
+    private List<OrderDetail>  orderDetail;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public List<OrderDetail> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
+    }
+
+
 
     private static final long serialVersionUID = 1L;
 
@@ -80,16 +101,13 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", ordersId=").append(ordersId);
-        sb.append(", personId=").append(personId);
-        sb.append(", totalPrice=").append(totalPrice);
-        sb.append(", addr=").append(addr);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Orders{" +
+                "ordersId=" + ordersId +
+                ", personId=" + personId +
+                ", totalPrice=" + totalPrice +
+                ", addr='" + addr + '\'' +
+                ", person=" + person +
+                ", orderDetail=" + orderDetail +
+                '}';
     }
 }

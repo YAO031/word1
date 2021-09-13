@@ -267,4 +267,82 @@ SELECT avg(score) from person where gender=#{gender}
 
         
     </select>
+
+    <resultMap id="selectaaaaaim" type="com.xiexin.bean.Person" extends="BaseResultMap">
+        <collection property="orders" ofType="com.xiexin.bean.Orders">
+
+            <id column="orders_id" jdbcType="INTEGER" property="ordersId" />
+            <result column="person_id" jdbcType="INTEGER" property="personId" />
+            <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+            <result column="addr" jdbcType="VARCHAR" property="addr" />
+
+            <collection property="ordersDetails" ofType="com.xiexin.bean.OrderDetail">
+
+                <id column="detail_id" jdbcType="INTEGER" property="detailId" />
+                <result column="order_id" jdbcType="INTEGER" property="orderId" />
+                <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+                <result column="price" jdbcType="DOUBLE" property="price" />
+                <result column="count" jdbcType="INTEGER" property="count" />
+
+            </collection>
+
+
+
+        </collection>
+
+    </resultMap>
+
+    <select id="selectaaaaa" resultMap="selectaaaaaim" parameterType="int">
+ select * from person p
+join orders o on o.person_id = p.id
+join order_detail od on od.order_id = o.orders_id
+where p.id = #{id}
+
+    </select>
+
+    <!--三表联查-->
+    <select id="selectDetailByram"  resultType="map" parameterType="map">
+        select * from person p
+join orders o on o.person_id = p.id
+join order_detail od on od.order_id = o.orders_id
+
+<where>
+    <if test="id !=null ">
+
+        p.id = #{id}
+    </if>
+    <if test="name !=null">
+
+        and p.name=#{name}
+    </if>
+
+</where>
+
+-- where p.id = #{id}
+
+    </select>
+
+
+    <!--多对多，根据人的查询角色-->
+
+    <resultMap id="selectRoleByPenameIM" type="com.xiexin.bean.Person" extends="BaseResultMap">
+
+        <collection property="roleList" ofType="com.xiexin.bean.Role">
+
+            <id column="role_id" jdbcType="INTEGER" property="roleId" />
+            <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+            <result column="desc" jdbcType="VARCHAR" property="desc" />
+        </collection>
+
+    </resultMap>
+
+    <select id="selectRoleByPename" resultMap="selectRoleByPenameIM" parameterType="string">
+
+select * from person p join   person_role prr
+on prr.personid =p.id
+ join   role r on r.role_id =  prr.roleid
+where p.name = #{name}
+
+    </select>
+
 </mapper>

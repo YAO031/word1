@@ -27,6 +27,13 @@
 		<mapper resource="com/xiexin/dao/ComprehensiveMApper.xml"></mapper>
 		<mapper resource="com/xiexin/dao/OrdersDAO.xml"></mapper>
 		<mapper resource="com/xiexin/dao/CityDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/RoleDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/PersonRoleDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/XuexiaoDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/XueshengDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/BanjiDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/XbanweiDAO.xml"></mapper>
+		<mapper resource="com/xiexin/dao/XbwDAO.xml"></mapper>
 
 	</mappers>
 

@@ -67,6 +67,13 @@ public interface PersonDao {
 
     List<Person> selectorderByperson(Integer id);
 
+    List<Person> selectaaaaa(Integer id);
+    //动态的查询
+    List<Map> selectDetailByram(Map map);
+
+
+List<Map> selectRoleByPename(String name);
+
 
 
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiexin.dao.OrdersDAO">
-  <resultMap id="BaseResultMap" type="com.xiexin.bean.Orders">
-    <id column="orders_id" jdbcType="INTEGER" property="ordersId" />
-    <result column="person_id" jdbcType="INTEGER" property="personId" />
-    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
-    <result column="addr" jdbcType="VARCHAR" property="addr" />
+<mapper namespace="com.xiexin.dao.XueshengDAO">
+  <resultMap id="BaseResultMap" type="com.xiexin.bean.Xuesheng">
+    <id column="xid" jdbcType="INTEGER" property="xid" />
+    <result column="xname" jdbcType="VARCHAR" property="xname" />
+    <result column="bid" jdbcType="INTEGER" property="bid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    orders_id, person_id, total_price, addr
+    xid, xname, bid
   </sql>
-  <select id="selectByExample" parameterType="com.xiexin.bean.OrdersExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.xiexin.bean.XueshengExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from orders
+    from xuesheng
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,76 +92,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from orders
-    where orders_id = #{ordersId,jdbcType=INTEGER}
+    from xuesheng
+    where xid = #{xid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from orders
-    where orders_id = #{ordersId,jdbcType=INTEGER}
+    delete from xuesheng
+    where xid = #{xid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.xiexin.bean.OrdersExample">
-    delete from orders
+  <delete id="deleteByExample" parameterType="com.xiexin.bean.XueshengExample">
+    delete from xuesheng
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xiexin.bean.Orders">
-    insert into orders (orders_id, person_id, total_price, 
-      addr)
-    values (#{ordersId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, #{totalPrice,jdbcType=DOUBLE}, 
-      #{addr,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.xiexin.bean.Xuesheng">
+    insert into xuesheng (xid, xname, bid
+      )
+    values (#{xid,jdbcType=INTEGER}, #{xname,jdbcType=VARCHAR}, #{bid,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.xiexin.bean.Orders">
-    insert into orders
+  <insert id="insertSelective" parameterType="com.xiexin.bean.Xuesheng">
+    insert into xuesheng
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ordersId != null">
-        orders_id,
+      <if test="xid != null">
+        xid,
       </if>
-      <if test="personId != null">
-        person_id,
+      <if test="xname != null">
+        xname,
       </if>
-      <if test="totalPrice != null">
-        total_price,
-      </if>
-      <if test="addr != null">
-        addr,
+      <if test="bid != null">
+        bid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ordersId != null">
-        #{ordersId,jdbcType=INTEGER},
+      <if test="xid != null">
+        #{xid,jdbcType=INTEGER},
       </if>
-      <if test="personId != null">
-        #{personId,jdbcType=INTEGER},
+      <if test="xname != null">
+        #{xname,jdbcType=VARCHAR},
       </if>
-      <if test="totalPrice != null">
-        #{totalPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="addr != null">
-        #{addr,jdbcType=VARCHAR},
+      <if test="bid != null">
+        #{bid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.xiexin.bean.OrdersExample" resultType="java.lang.Long">
-    select count(*) from orders
+  <select id="countByExample" parameterType="com.xiexin.bean.XueshengExample" resultType="java.lang.Long">
+    select count(*) from xuesheng
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update orders
+    update xuesheng
     <set>
-      <if test="record.ordersId != null">
-        orders_id = #{record.ordersId,jdbcType=INTEGER},
+      <if test="record.xid != null">
+        xid = #{record.xid,jdbcType=INTEGER},
       </if>
-      <if test="record.personId != null">
-        person_id = #{record.personId,jdbcType=INTEGER},
+      <if test="record.xname != null">
+        xname = #{record.xname,jdbcType=VARCHAR},
       </if>
-      <if test="record.totalPrice != null">
-        total_price = #{record.totalPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="record.addr != null">
-        addr = #{record.addr,jdbcType=VARCHAR},
+      <if test="record.bid != null">
+        bid = #{record.bid,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -170,58 +160,53 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update orders
-    set orders_id = #{record.ordersId,jdbcType=INTEGER},
-      person_id = #{record.personId,jdbcType=INTEGER},
-      total_price = #{record.totalPrice,jdbcType=DOUBLE},
-      addr = #{record.addr,jdbcType=VARCHAR}
+    update xuesheng
+    set xid = #{record.xid,jdbcType=INTEGER},
+      xname = #{record.xname,jdbcType=VARCHAR},
+      bid = #{record.bid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xiexin.bean.Orders">
-    update orders
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiexin.bean.Xuesheng">
+    update xuesheng
     <set>
-      <if test="personId != null">
-        person_id = #{personId,jdbcType=INTEGER},
+      <if test="xname != null">
+        xname = #{xname,jdbcType=VARCHAR},
       </if>
-      <if test="totalPrice != null">
-        total_price = #{totalPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="addr != null">
-        addr = #{addr,jdbcType=VARCHAR},
+      <if test="bid != null">
+        bid = #{bid,jdbcType=INTEGER},
       </if>
     </set>
-    where orders_id = #{ordersId,jdbcType=INTEGER}
+    where xid = #{xid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xiexin.bean.Orders">
-    update orders
-    set person_id = #{personId,jdbcType=INTEGER},
-      total_price = #{totalPrice,jdbcType=DOUBLE},
-      addr = #{addr,jdbcType=VARCHAR}
-    where orders_id = #{ordersId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.xiexin.bean.Xuesheng">
+    update xuesheng
+    set xname = #{xname,jdbcType=VARCHAR},
+      bid = #{bid,jdbcType=INTEGER}
+    where xid = #{xid,jdbcType=INTEGER}
   </update>
 
 
-  <resultMap id="selectPersonByOrdersIdIM" type="com.xiexin.bean.Orders" extends="BaseResultMap">
+  <resultMap id="selectRm" type="com.xiexin.bean.Xuesheng" extends="BaseResultMap">
 
-<association property="person" javaType="com.xiexin.bean.Person">
-  <id column="id" property="id"></id>
-  <result column="name" property="name"></result>
-  <result column="address" property="address"></result>
-  <result column="birtday" property="birthday"></result>
-  <result column="gender" property="gender"></result>
-  <result column="score" property="score"></result>
-</association>
+    <collection property="xbws" ofType="com.xiexin.bean.Xbw">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="bid" jdbcType="INTEGER" property="bid" />
 
+      <collection property="xbanweiExamples" ofType="com.xiexin.bean.Xbanwei">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+
+      </collection>
+    </collection>
 
   </resultMap>
+  <select id="select" resultMap="selectRm" parameterType="string">
 
-  <select id="selectPersonByOrdersId" resultMap="selectPersonByOrdersIdIM" parameterType="int">
-
-select * from orders o join
-person p on p.id = o.person_id
-where o.orders_id =#{id}
+select * from xuesheng x
+join xbw xb on x.xid=xb.bid
+join xbanwei  xbw on xbw.id = xb.id where x.xname=#{xname}
 
   </select>
 </mapper>
