@@ -42,7 +42,7 @@
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--<property name="prefix" value="/WEB-INF/jsp/"></property>-->
-        <property name="prefix" value="/pages/" />
+        <property name="prefix" value="/WEB-INF/pages/" />
         <property name="suffix" value=".jsp" />
     </bean>
     <!-- 配置springmvc不能处理的请求交给tomcat -->
